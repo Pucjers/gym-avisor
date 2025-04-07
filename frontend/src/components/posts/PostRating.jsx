@@ -29,6 +29,7 @@ import {
   onSnapshot
 } from 'firebase/firestore';
 import { db } from '../../services/firebase';
+import { debounce } from 'lodash';
 
 const PostRating = ({ postId }) => {
   const { currentUser } = useAuth();
@@ -103,7 +104,7 @@ const PostRating = ({ postId }) => {
   }, [postId, currentUser]);
   
   // Обробник для зірочок (рейтингу)
-  const handleRatingChange = async (event, newValue) => {
+  const handleRatingChange = debounce(async (event, newValue) => {
     if (!currentUser) {
       setError("Увійдіть, щоб оцінити статтю");
       return;
@@ -192,7 +193,7 @@ const PostRating = ({ postId }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, 300);
   
   // Обробник для лайків
   const handleLikeToggle = async () => {

@@ -163,6 +163,16 @@ const Header = () => {
                 </ListItemButton>
               </ListItem>
             )}
+
+            <ListItem disablePadding>
+              <ListItemButton 
+                component={Link} 
+                to="/chat"
+                selected={isActive('/chat')}
+              >
+                <ListItemText primary="Чат з AI" />
+              </ListItemButton>
+            </ListItem>
             
             <ListItem disablePadding>
               <ListItemButton onClick={handleLogout}>
@@ -292,6 +302,14 @@ const Header = () => {
                         Адмін-панель
                       </Button>
                     )}
+                    <Button 
+                      color="inherit" 
+                      component={Link} 
+                      to="/chat"
+                      sx={{ mx: 1, fontWeight: isActive('/chat') ? 700 : 400 }}
+                    >
+                      Чат 
+                    </Button>
                     
                     <Button 
                       color="inherit" 

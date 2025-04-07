@@ -21,8 +21,8 @@ const CommentForm = ({ postId, onCommentAdded }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!comment.trim()) {
+    if (comment.length > 500) {
+      setError('Comment cannot exceed 500 characters.');
       return;
     }
     

@@ -183,17 +183,8 @@ const CommentSection = ({ postId }) => {
   // UI під час завантаження
   if (loading) {
     return (
-      <Box sx={{ mt: 4 }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-          <CommentIcon sx={{ mr: 1 }} />
-          <Typography variant="h6" component="h2">
-            Коментарі
-          </Typography>
-        </Box>
-        <Divider sx={{ mb: 2 }} />
-        <Box sx={{ display: 'flex', justifyContent: 'center', my: 4 }}>
-          <CircularProgress />
-        </Box>
+      <Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
+        <CircularProgress size={24} />
       </Box>
     );
   }

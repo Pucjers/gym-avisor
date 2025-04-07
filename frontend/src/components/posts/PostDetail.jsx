@@ -22,7 +22,8 @@ import {
   DialogContentText,
   DialogTitle,
   Link as MuiLink,
-  Breadcrumbs
+  Breadcrumbs,
+  CircularProgress
 } from '@mui/material';
 import {
   Person as PersonIcon,
@@ -102,19 +103,10 @@ const PostDetail = () => {
   if (loading) {
     return (
       <Container maxWidth="md" sx={{ py: 4 }}>
-        <Skeleton variant="text" sx={{ fontSize: '3rem', width: '70%', mb: 2 }} />
-        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-          <Skeleton variant="circular" width={40} height={40} sx={{ mr: 1 }} />
-          <Skeleton variant="text" sx={{ fontSize: '1rem', width: 120 }} />
-          <Box sx={{ flexGrow: 1 }} />
-          <Skeleton variant="text" sx={{ fontSize: '1rem', width: 100 }} />
-        </Box>
-        <Divider sx={{ my: 2 }} />
-        <Skeleton variant="rectangular" height={400} sx={{ mb: 2 }} />
-        <Box sx={{ display: 'flex', gap: 2 }}>
-          <Skeleton variant="rounded" width={100} height={40} />
-          <Skeleton variant="rounded" width={100} height={40} />
-        </Box>
+        <CircularProgress />
+        <Typography variant="body1" sx={{ mt: 2 }}>
+          Loading post details...
+        </Typography>
       </Container>
     );
   }

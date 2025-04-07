@@ -17,7 +17,8 @@ import {
   Divider,
   Skeleton,
   Chip,
-  Avatar
+  Avatar,
+  CircularProgress
 } from '@mui/material';
 import { 
   Add as AddIcon, 
@@ -100,6 +101,15 @@ const Home = () => {
     ));
   };
 
+  if (loading) {
+    return (
+      <Container maxWidth="lg" sx={{ py: 4 }}>
+        <Typography variant="h6">Loading posts...</Typography>
+        <CircularProgress />
+      </Container>
+    );
+  }
+
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
       <Box sx={{ mb: 4 }}>
@@ -122,11 +132,7 @@ const Home = () => {
             Останні статті
           </Typography>
           
-          {loading ? (
-            <Grid container spacing={3}>
-              {renderSkeletons()}
-            </Grid>
-          ) : posts.length === 0 ? (
+          {posts.length === 0 ? (
             <Box sx={{ py: 4, textAlign: 'center' }}>
               <Typography variant="body1">Поки що немає статей. Будьте першим, хто створить статтю!</Typography>
               {currentUser && (

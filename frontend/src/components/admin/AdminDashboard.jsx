@@ -79,8 +79,6 @@ const AdminDashboard = () => {
     const fetchDashboardData = async () => {
       try {
         setLoading(true);
-
-        // Отримуємо статистику
         await Promise.all([
           fetchTotalPosts(),
           fetchTotalUsers(),
@@ -89,9 +87,9 @@ const AdminDashboard = () => {
           fetchRecentPosts(),
           fetchRecentUsers()
         ]);
-
       } catch (error) {
-        console.error("Помилка отримання даних для дашборду:", error);
+        console.error("Error fetching dashboard data:", error);
+        // Optionally set an error state to display to the user
       } finally {
         setLoading(false);
       }

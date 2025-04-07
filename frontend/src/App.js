@@ -1,10 +1,11 @@
 // App.js
+import React, { Suspense, lazy } from 'react';
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Header from "./components/auth/Header";
 import Home from "./components/home/Home";
 import { AuthProvider } from "./contexts/AuthContext";
-import { useRoutes } from "react-router-dom";
+import { useRoutes, Navigate } from "react-router-dom";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import AdminRoute from "./components/auth/AdminRoute";
 import CreatePost from "./components/posts/CreatePost";
@@ -19,12 +20,16 @@ import GymDetail from "./components/gyms/GymDetail";
 import { ThemeProvider, CssBaseline, useMediaQuery } from '@mui/material';
 import { createAppTheme } from './theme';
 import { useState, useMemo, createContext, useEffect } from 'react';
+import ChatAI from "./components/ChatAI";
 
 // Створюємо контекст для управління темою
 export const ColorModeContext = createContext({ 
   toggleColorMode: () => {},
   mode: 'light'
 });
+
+const LoginComponent = lazy(() => import("./components/auth/Login"));
+const RegisterComponent = lazy(() => import("./components/auth/Register"));
 
 function App() {
   // Визначаємо системні налаштування теми
@@ -114,8 +119,12 @@ function App() {
       element: <AdminRoute><AdminUsers /></AdminRoute>,
     },
     {
+      path: "/chat",
+      element: <ChatAI />,
+    },
+    {
       path: "*",
-      element: <Home />,
+      element: <Navigate to="/" replace />,
     }
   ];
   
@@ -127,9 +136,11 @@ function App() {
         <CssBaseline />
         <AuthProvider>
           <Header />
-          <div className="w-full min-h-screen flex flex-col">
-            {routesElement}
-          </div>
+          <Suspense fallback={<div>Loading...</div>}>
+            <div className="w-full min-h-screen flex flex-col">
+              {routesElement}
+            </div>
+          </Suspense>
         </AuthProvider>
       </ThemeProvider>
     </ColorModeContext.Provider>

@@ -36,6 +36,10 @@ const Login = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    if (!email || !password) {
+      setErrorMessage("Email and password are required.");
+      return;
+    }
     if (!isSigningIn) {
       setIsSigningIn(true);
       setErrorMessage('');

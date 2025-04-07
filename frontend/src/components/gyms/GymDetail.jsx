@@ -164,7 +164,7 @@ const GymDetail = () => {
               <CardMedia
                 component="img"
                 height="300"
-                image={gym.imageUrl || 'https://via.placeholder.com/600x300?text=Спортзал'}
+                image={gym.imageUrl || 'https://via.placeholder.com/600x300?text=Gym'}
                 alt={gym.name}
               />
             </Card>
