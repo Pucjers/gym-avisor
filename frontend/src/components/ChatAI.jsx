@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 
 const ChatAI = () => {
+  const hgToken = process.env.REACT_APP_HUGGING_FACE_API_KEY;
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -29,23 +30,28 @@ const ChatAI = () => {
     setError('');
 
     try {
-      // Simulate an API call to get AI response
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ message: input }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch AI response');
-      }
+       const result = await fetch(
+        "https://api-inference.huggingface.co/models/cardiffnlp/twitter-roberta-base-sentiment-latest",
+        {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${hgToken}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(input),
+        }
+    );
+    const response = await result.json();
 
       const data = await response.json();
-      const aiMessage = { text: data.reply, sender: 'ai' };
+      const aiMessage = {
+        text: data[0].generated_text,
+        sender: 'ai'
+      };
+
       setMessages((prev) => [...prev, aiMessage]);
     } catch (err) {
+      console.error("Error fetching AI response:", err);
       setError('Помилка при отриманні відповіді від AI');
     } finally {
       setLoading(false);

@@ -18,6 +18,7 @@
     "framer-motion": "^12.5.0",
     "leaflet": "^1.9.4",
     "mammoth": "^1.9.0",
+    "openai": "^4.89.0",
     "react": "^19.0.0",
     "react-bits": "^1.0.5",
     "react-dom": "^19.0.0",
